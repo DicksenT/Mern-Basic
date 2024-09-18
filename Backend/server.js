@@ -10,6 +10,11 @@ const mongoose = require('mongoose')
 const workoutRoute = require('./routes/workout')
 
 //middleware
+
+//so we can use req on another route file
+app.use(express.json())
+
+
 app.use((req,res,next) =>{
     console.log(`Path: ${req.path}, Method: ${req.method}`);
     //we use next so when this middleware finish it can continue
