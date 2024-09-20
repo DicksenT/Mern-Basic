@@ -11,7 +11,7 @@ const workoutRoute = require('./routes/workout')
 
 //middleware
 
-//so we can use req on another route file
+//so we can use req on another file
 app.use(express.json())
 
 

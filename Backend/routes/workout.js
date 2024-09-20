@@ -1,31 +1,34 @@
 const express = require('express')
-const model = require('../models/workoutModel')
+const {
+    getData,
+    postData
+} = require('../controllers/workoutControllers')
 
 const router = express.Router()
 
-router.get('/',(req, res)=>{
-    res.json({mssg: 'get all mssge'})
-})
+//get Data
+router.get('/',getData)
 
+//get single data
 router.get('/:id', (req, res)=>{
-    res.json({mssg: 'single mssg'})
-})
+    const {id} = req.params
 
-router.post('/', async(req,res) =>{
-    const {title, reps, load} = req.body
-
-    try{
-        const workout = await model.create({title, reps, load})
-        res.status(200).json(workout)
-    }catch(error){
-        res.status(400).json(error)
+    const workout = model.findById({id})
+    if(!workout){
+        res.status(404).json({mssg: "can't find id"})
     }
 })
 
+
+//post data
+router.post('/', postData)
+
+//delete data
 router.delete('/:id',(req,res) =>{
     res.json({mssg: 'delete msg'})
 })
 
+//update data
 router.patch('/:id', (req,res) =>{
     res.json({mssg: 'patch'})
 })
