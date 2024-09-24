@@ -1,7 +1,10 @@
 const express = require('express')
 const {
     getData,
-    postData
+    postData,
+    findSingleData,
+    deleteData,
+    updateData
 } = require('../controllers/workoutControllers')
 
 const router = express.Router()
@@ -10,27 +13,15 @@ const router = express.Router()
 router.get('/',getData)
 
 //get single data
-router.get('/:id', (req, res)=>{
-    const {id} = req.params
-
-    const workout = model.findById({id})
-    if(!workout){
-        res.status(404).json({mssg: "can't find id"})
-    }
-})
-
+router.get('/:id', findSingleData)
 
 //post data
 router.post('/', postData)
 
 //delete data
-router.delete('/:id',(req,res) =>{
-    res.json({mssg: 'delete msg'})
-})
+router.delete('/:id',deleteData)
 
 //update data
-router.patch('/:id', (req,res) =>{
-    res.json({mssg: 'patch'})
-})
+router.patch('/:id', updateData)
 
 module.exports = router
