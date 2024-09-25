@@ -1,6 +1,8 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { WorkoutContext } from "../context/WorkoutContext"
 
 const Workoutform = ()=>{
+    const {dispatch} = useContext(WorkoutContext)
     const [title, setTitle] = useState('')
     const [reps, setReps] = useState('')
     const [load, setLoad] = useState('')
@@ -21,10 +23,11 @@ const Workoutform = ()=>{
         const json = await response.json()
         if(!response.ok){
             setError(json.message)
-            console.log(json);
+            console.log(error);
             
         }
         else{
+            dispatch({type: 'ADD_WORKOUT', payload: json})
             setTitle('')
             setReps('')
             setLoad('')

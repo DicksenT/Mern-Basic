@@ -12,14 +12,18 @@ const workoutReducer = (state, action)=>{
             }
         case 'ADD_WORKOUT':
             return{
-                workout: [action.payload, ...state.workout]
+                workout: [...state.workout, action.payload]
+            }
+        case 'DEL_WORKOUT':
+            return{
+                workout: state.workout.filter(workout => workout._id != action.payload)
             }
         default:
             return state
     }
 }
 
-export const WorkoutContextProvider = ({childern}) =>{
+export const WorkoutContextProvider = ({children}) =>{
     const [state, dispatch] = useReducer(workoutReducer, {
         workout: null
     })
@@ -30,7 +34,7 @@ export const WorkoutContextProvider = ({childern}) =>{
     return (
         //dont forget to set value to provider, in this case set state and dispatch from useReducer
         <WorkoutContext.Provider value={{state, dispatch}}> 
-            {childern}
+            {children}
         </WorkoutContext.Provider>
 
     )
