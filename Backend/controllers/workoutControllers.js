@@ -24,7 +24,6 @@ const postData = async(req,res) =>{
 // find single data
 const findSingleData = async(req, res)=>{
     const {id} = req.params
-
     if(!mongoose.Types.ObjectId.isValid){
         return res.status(404).json({error: 'Data is not found'})
     }
